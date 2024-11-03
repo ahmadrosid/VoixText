@@ -4,6 +4,8 @@ A web application that allows users to record audio and get a transcriptions usi
 
 ![Demo Screenshot](demo.png)
 
+See the demo on youtube: https://youtu.be/CT--fCB4K4g
+
 ## Features
 
 - 🎤 Browser-based audio recording
