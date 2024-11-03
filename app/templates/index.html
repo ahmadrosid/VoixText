@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Transcription App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/copy-icon@1.0.4/index.js"></script>
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white p-8 rounded-lg border border-gray-200 w-full max-w-2xl">
+        <h1 class="text-2xl font-bold mb-6 text-gray-800">Audio Transcription</h1>
+        
+        <!-- Audio Recorder Web Component -->
+        <audio-recorder 
+            api-endpoint="/upload"
+            class="mb-6">
+        </audio-recorder>
+
+        <!-- Transcription Result -->
+        <div id="transcriptionResult" class="mt-6 hidden relative">
+            <h2 class="text-lg font-semibold text-gray-700 mb-2">Transcription:</h2>
+            <div class="p-4 bg-gray-50 rounded-md relative">
+                <p id="transcriptionText" class="text-gray-800 pr-8"></p>
+                <copy-icon 
+                    onclick="navigator.clipboard.writeText(document.getElementById('transcriptionText').innerText)"
+                    class="absolute top-2 right-2">
+                </copy-icon>
+            </div>
+        </div>
+    </div>
+
+    <!-- Your audio-recorder web component script -->
+    <script src="/static/audio-recorder.js"></script>
+
+    <script>
+        document.querySelector('audio-recorder').addEventListener('upload-complete', (event) => {
+            const result = event.detail;
+            const transcriptionDiv = document.getElementById('transcriptionResult');
+            const transcriptionText = document.getElementById('transcriptionText');
+            
+            if (result.success) {
+                transcriptionDiv.classList.remove('hidden');
+                transcriptionText.textContent = result.transcript;
+            } else {
+                alert('Transcription failed: ' + result.error);
+            }
+        });
+    </script>
+</body>
+</html>
