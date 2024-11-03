@@ -154,7 +154,7 @@ class AudioRecorder extends HTMLElement {
         const formData = new FormData();
         formData.append('audio', this.audioBlob, 'recording.wav');
 
-        this.statusDiv.textContent = 'Uploading...';
+        this.statusDiv.textContent = 'Transcribing...';
         this.transcriptBtn.disabled = true;
 
         try {
